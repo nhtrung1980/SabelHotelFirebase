@@ -1,3 +1,5 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/components/side_bar_nav_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -5,6 +7,8 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -72,6 +76,22 @@ class _HomePageWidgetState extends State<HomePageWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => HomePageModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.hotel = await queryHotelsRecordOnce(
+        queryBuilder: (hotelsRecord) =>
+            hotelsRecord.where('user_id', isEqualTo: currentUserUid),
+        singleRecord: true,
+      ).then((s) => s.firstOrNull);
+      if (_model.hotel != null) {
+        setState(() {
+          FFAppState().hotel = _model.hotel?.reference;
+        });
+      } else {
+        context.goNamed('hotel');
+      }
+    });
 
     setupAnimations(
       animationsMap.values.where((anim) =>
@@ -146,7 +166,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Dashboard',
+                            valueOrDefault<String>(
+                              _model.hotel?.name,
+                              'No motel name',
+                            ),
                             style: FlutterFlowTheme.of(context).headlineSmall,
                           ),
                           Padding(

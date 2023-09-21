@@ -68,12 +68,7 @@ class _SideBarNavWidgetState extends State<SideBarNavWidget> {
             offset: Offset(0.0, 1.0),
           )
         ],
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(0.0),
-          bottomRight: Radius.circular(12.0),
-          topLeft: Radius.circular(0.0),
-          topRight: Radius.circular(12.0),
-        ),
+        borderRadius: BorderRadius.circular(0.0),
       ),
       child: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
@@ -129,7 +124,10 @@ class _SideBarNavWidgetState extends State<SideBarNavWidget> {
                       ),
                       Text(
                         'Dashboard',
-                        style: FlutterFlowTheme.of(context).bodyMedium,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Manrope',
+                              fontSize: 16.0,
+                            ),
                       ),
                     ],
                   ),
@@ -157,7 +155,10 @@ class _SideBarNavWidgetState extends State<SideBarNavWidget> {
                       ),
                       Text(
                         'Courses',
-                        style: FlutterFlowTheme.of(context).bodyMedium,
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Manrope',
+                              fontSize: 16.0,
+                            ),
                       ),
                     ],
                   ),
@@ -198,11 +199,19 @@ class _SideBarNavWidgetState extends State<SideBarNavWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 12.0, 0.0),
-                          child: widget.threeIcon!,
+                          child: Icon(
+                            Icons.home,
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            size: 20.0,
+                          ),
                         ),
                         Text(
                           'Profile',
-                          style: FlutterFlowTheme.of(context).bodyMedium,
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Manrope',
+                                    fontSize: 16.0,
+                                  ),
                         ),
                       ],
                     ),
