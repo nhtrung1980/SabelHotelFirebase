@@ -28,6 +28,9 @@ class _HotelWidgetState extends State<HotelWidget> {
     super.initState();
     _model = createModel(context, () => HotelModel());
 
+    _model.nameController ??= TextEditingController();
+    _model.addressController ??= TextEditingController();
+    _model.phoneController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -44,8 +47,8 @@ class _HotelWidgetState extends State<HotelWidget> {
 
     return StreamBuilder<List<HotelsRecord>>(
       stream: queryHotelsRecord(
-        queryBuilder: (hotelsRecord) =>
-            hotelsRecord.where('user_id', isEqualTo: currentUserUid),
+        queryBuilder: (hotelsRecord) => hotelsRecord.where('user_id',
+            isEqualTo: currentUserUid != '' ? currentUserUid : null),
         singleRecord: true,
       ),
       builder: (context, snapshot) {
@@ -227,11 +230,7 @@ class _HotelWidgetState extends State<HotelWidget> {
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     8.0, 0.0, 8.0, 16.0),
                                             child: TextFormField(
-                                              controller:
-                                                  _model.nameController ??=
-                                                      TextEditingController(
-                                                text: hotelHotelsRecord?.name,
-                                              ),
+                                              controller: _model.nameController,
                                               autofocus: true,
                                               obscureText: false,
                                               decoration: InputDecoration(
@@ -305,11 +304,7 @@ class _HotelWidgetState extends State<HotelWidget> {
                                                     8.0, 0.0, 8.0, 16.0),
                                             child: TextFormField(
                                               controller:
-                                                  _model.addressController ??=
-                                                      TextEditingController(
-                                                text:
-                                                    hotelHotelsRecord?.address,
-                                              ),
+                                                  _model.addressController,
                                               autofocus: true,
                                               obscureText: false,
                                               decoration: InputDecoration(
@@ -383,10 +378,7 @@ class _HotelWidgetState extends State<HotelWidget> {
                                                     8.0, 0.0, 8.0, 16.0),
                                             child: TextFormField(
                                               controller:
-                                                  _model.phoneController ??=
-                                                      TextEditingController(
-                                                text: hotelHotelsRecord?.mobile,
-                                              ),
+                                                  _model.phoneController,
                                               autofocus: true,
                                               obscureText: false,
                                               decoration: InputDecoration(
