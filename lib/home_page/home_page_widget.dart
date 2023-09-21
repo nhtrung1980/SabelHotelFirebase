@@ -84,13 +84,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
             hotelsRecord.where('user_id', isEqualTo: currentUserUid),
         singleRecord: true,
       ).then((s) => s.firstOrNull);
-      if (_model.hotel != null) {
-        setState(() {
-          FFAppState().hotel = _model.hotel?.reference;
-        });
-      } else {
-        context.goNamed('hotel');
-      }
     });
 
     setupAnimations(
@@ -112,8 +105,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(

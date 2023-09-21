@@ -40,9 +40,6 @@ class _HotelWidgetState extends State<HotelWidget> {
       if (_model.hotel?.reference.id != null &&
           _model.hotel?.reference.id != '') {
         setState(() {
-          FFAppState().hotel = _model.hotel?.reference;
-        });
-        setState(() {
           _model.nameController?.text = _model.hotel!.name;
         });
         setState(() {
@@ -69,8 +66,6 @@ class _HotelWidgetState extends State<HotelWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
@@ -442,9 +437,11 @@ class _HotelWidgetState extends State<HotelWidget> {
                                           children: [
                                             FFButtonWidget(
                                               onPressed: () async {
-                                                if (FFAppState().hotel?.id ==
+                                                if (_model.hotel?.reference
+                                                            .id ==
                                                         null ||
-                                                    FFAppState().hotel?.id ==
+                                                    _model.hotel?.reference
+                                                            .id ==
                                                         '') {
                                                   var hotelsRecordReference =
                                                       HotelsRecord.collection
@@ -477,11 +474,6 @@ class _HotelWidgetState extends State<HotelWidget> {
                                                           ),
                                                           hotelsRecordReference);
                                                   if (_model.hotelRep != null) {
-                                                    setState(() {
-                                                      FFAppState().hotel =
-                                                          _model.hotelRep
-                                                              ?.reference;
-                                                    });
                                                     ScaffoldMessenger.of(
                                                             context)
                                                         .showSnackBar(
@@ -524,18 +516,15 @@ class _HotelWidgetState extends State<HotelWidget> {
                                                     );
                                                   }
                                                 } else {
-                                                  await FFAppState()
-                                                      .hotel!
+                                                  await _model.hotel!.reference
                                                       .update(
                                                           createHotelsRecordData(
-                                                        name: _model
-                                                            .nameController
-                                                            .text,
-                                                        address: _model
-                                                            .addressController
-                                                            .text,
-                                                        userId: currentUserUid,
-                                                      ));
+                                                    name: _model
+                                                        .nameController.text,
+                                                    address: _model
+                                                        .addressController.text,
+                                                    userId: currentUserUid,
+                                                  ));
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(
                                                     SnackBar(
