@@ -37,18 +37,21 @@ class _HotelWidgetState extends State<HotelWidget> {
             hotelsRecord.where('user_id', isEqualTo: currentUserUid),
         singleRecord: true,
       ).then((s) => s.firstOrNull);
-      setState(() {
-        FFAppState().hotel = _model.hotel?.reference;
-      });
-      setState(() {
-        _model.nameController?.text = _model.hotel!.name;
-      });
-      setState(() {
-        _model.addressController?.text = _model.hotel!.address;
-      });
-      setState(() {
-        _model.phoneController?.text = _model.hotel!.mobile;
-      });
+      if (_model.hotel?.reference.id != null &&
+          _model.hotel?.reference.id != '') {
+        setState(() {
+          FFAppState().hotel = _model.hotel?.reference;
+        });
+        setState(() {
+          _model.nameController?.text = _model.hotel!.name;
+        });
+        setState(() {
+          _model.addressController?.text = _model.hotel!.address;
+        });
+        setState(() {
+          _model.phoneController?.text = _model.hotel!.mobile;
+        });
+      }
     });
 
     _model.nameController ??= TextEditingController();
@@ -213,10 +216,18 @@ class _HotelWidgetState extends State<HotelWidget> {
                                           labelText: 'Motel name',
                                           labelStyle:
                                               FlutterFlowTheme.of(context)
-                                                  .labelMedium,
+                                                  .labelMedium
+                                                  .override(
+                                                    fontFamily: 'Manrope',
+                                                    fontSize: 16.0,
+                                                  ),
                                           hintStyle:
                                               FlutterFlowTheme.of(context)
-                                                  .labelMedium,
+                                                  .labelMedium
+                                                  .override(
+                                                    fontFamily: 'Manrope',
+                                                    fontSize: 16.0,
+                                                  ),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
                                               color:
@@ -260,7 +271,11 @@ class _HotelWidgetState extends State<HotelWidget> {
                                           ),
                                         ),
                                         style: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Manrope',
+                                              fontSize: 16.0,
+                                            ),
                                         validator: _model
                                             .nameControllerValidator
                                             .asValidator(context),
@@ -277,10 +292,18 @@ class _HotelWidgetState extends State<HotelWidget> {
                                           labelText: 'Motel address',
                                           labelStyle:
                                               FlutterFlowTheme.of(context)
-                                                  .labelMedium,
+                                                  .labelMedium
+                                                  .override(
+                                                    fontFamily: 'Manrope',
+                                                    fontSize: 16.0,
+                                                  ),
                                           hintStyle:
                                               FlutterFlowTheme.of(context)
-                                                  .labelMedium,
+                                                  .labelMedium
+                                                  .override(
+                                                    fontFamily: 'Manrope',
+                                                    fontSize: 16.0,
+                                                  ),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
                                               color:
@@ -341,10 +364,18 @@ class _HotelWidgetState extends State<HotelWidget> {
                                           labelText: 'Phone number',
                                           labelStyle:
                                               FlutterFlowTheme.of(context)
-                                                  .labelMedium,
+                                                  .labelMedium
+                                                  .override(
+                                                    fontFamily: 'Manrope',
+                                                    fontSize: 16.0,
+                                                  ),
                                           hintStyle:
                                               FlutterFlowTheme.of(context)
-                                                  .labelMedium,
+                                                  .labelMedium
+                                                  .override(
+                                                    fontFamily: 'Manrope',
+                                                    fontSize: 16.0,
+                                                  ),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
                                               color:
