@@ -5,7 +5,9 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'hotel_model.dart';
@@ -27,6 +29,27 @@ class _HotelWidgetState extends State<HotelWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => HotelModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.hotel = await queryHotelsRecordOnce(
+        queryBuilder: (hotelsRecord) =>
+            hotelsRecord.where('user_id', isEqualTo: currentUserUid),
+        singleRecord: true,
+      ).then((s) => s.firstOrNull);
+      setState(() {
+        FFAppState().hotel = _model.hotel?.reference;
+      });
+      setState(() {
+        _model.nameController?.text = _model.hotel!.name;
+      });
+      setState(() {
+        _model.addressController?.text = _model.hotel!.address;
+      });
+      setState(() {
+        _model.phoneController?.text = _model.hotel!.mobile;
+      });
+    });
 
     _model.nameController ??= TextEditingController();
     _model.addressController ??= TextEditingController();
