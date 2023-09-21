@@ -170,14 +170,24 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               _model.hotel?.name,
                               'No motel name',
                             ),
-                            style: FlutterFlowTheme.of(context).headlineSmall,
+                            style: FlutterFlowTheme.of(context)
+                                .headlineSmall
+                                .override(
+                                  fontFamily: 'Urbanist',
+                                  fontSize: 24.0,
+                                ),
                           ),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 4.0, 0.0, 0.0),
                             child: Text(
-                              'Your project status is appearing here.',
-                              style: FlutterFlowTheme.of(context).bodySmall,
+                              _model.hotel!.address,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodySmall
+                                  .override(
+                                    fontFamily: 'Manrope',
+                                    fontSize: 16.0,
+                                  ),
                             ),
                           ),
                         ],
