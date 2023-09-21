@@ -173,7 +173,7 @@ class _SideBarNavWidgetState extends State<SideBarNavWidget> {
                 highlightColor: Colors.transparent,
                 onTap: () async {
                   context.pushNamed(
-                    'profilePage',
+                    'hotel',
                     extra: <String, dynamic>{
                       kTransitionInfoKey: TransitionInfo(
                         hasTransition: true,

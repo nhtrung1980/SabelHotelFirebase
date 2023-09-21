@@ -140,9 +140,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'hotel',
               path: 'hotel',
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'hotel')
-                  : HotelWidget(),
+              requireAuth: true,
+              builder: (context, params) => HotelWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
