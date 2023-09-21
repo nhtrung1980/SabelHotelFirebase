@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "613614613520",
+    "firebase_url": "https://tantan-173711.firebaseio.com",
+    "project_id": "tantan-173711",
+    "storage_bucket": "tantan-173711.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613614613520:android:58ba35c8ca55b021308695",
+        "android_client_info": {
+          "package_name": "com.sabel.hotel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "613614613520-eqh3nsd31r2dubhtdnufp49o5jdiifkm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sabel.hotel",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "613614613520-5e2hff3d9771bqpq54rueg603r1ifp68.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8VtmntoRcCwCAFzBg9xI0MXab_t1fDek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "613614613520-5e2hff3d9771bqpq54rueg603r1ifp68.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "613614613520-slh84aaq0j4vmd85ri4tvikdu6lso36f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sabel.hotel"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
