@@ -175,6 +175,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                 .override(
                                   fontFamily: 'Urbanist',
                                   fontSize: 24.0,
+                                  fontWeight: FontWeight.bold,
                                 ),
                           ),
                           Padding(
