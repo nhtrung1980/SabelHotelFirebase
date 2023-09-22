@@ -342,6 +342,11 @@ class _SignInWidgetState extends State<SignInWidget> {
                                         singleRecord: true,
                                       ).then((s) => s.firstOrNull);
                                       if ((_model.hotelRef != null) == true) {
+                                        setState(() {
+                                          FFAppState().hotel =
+                                              _model.hotelRef?.reference;
+                                        });
+
                                         context.pushNamedAuth(
                                             'homePage', context.mounted);
                                       } else {
