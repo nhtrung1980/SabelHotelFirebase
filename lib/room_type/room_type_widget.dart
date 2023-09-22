@@ -416,13 +416,35 @@ class _RoomTypeWidgetState extends State<RoomTypeWidget> {
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     16.0, 0.0, 16.0, 16.0),
-                                child: Builder(
-                                  builder: (context) {
-                                    final types = _model.roomTypeList
-                                            ?.map((e) => e)
-                                            .toList()
-                                            ?.toList() ??
-                                        [];
+                                child: StreamBuilder<List<RoomTypesRecord>>(
+                                  stream: queryRoomTypesRecord(
+                                    queryBuilder: (roomTypesRecord) =>
+                                        roomTypesRecord
+                                            .where('hotel_id',
+                                                isEqualTo:
+                                                    FFAppState().hotel?.id)
+                                            .orderBy('name'),
+                                  ),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50.0,
+                                          height: 50.0,
+                                          child: CircularProgressIndicator(
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    List<RoomTypesRecord>
+                                        dataTableRoomTypesRecordList =
+                                        snapshot.data!;
                                     return DataTable2(
                                       columns: [
                                         DataColumn2(
@@ -463,17 +485,19 @@ class _RoomTypeWidgetState extends State<RoomTypeWidget> {
                                           ),
                                         ),
                                       ],
-                                      rows: types
-                                          .mapIndexed((typesIndex, typesItem) =>
+                                      rows: dataTableRoomTypesRecordList
+                                          .mapIndexed((dataTableIndex,
+                                                  dataTableRoomTypesRecord) =>
                                               [
                                                 Text(
-                                                  typesItem.name,
+                                                  dataTableRoomTypesRecord.name,
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium,
                                                 ),
                                                 Text(
-                                                  typesItem.description,
+                                                  dataTableRoomTypesRecord
+                                                      .description,
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium,
@@ -518,7 +542,7 @@ class _RoomTypeWidgetState extends State<RoomTypeWidget> {
                                                           highlightColor: Colors
                                                               .transparent,
                                                           onTap: () async {
-                                                            await typesItem
+                                                            await dataTableRoomTypesRecord
                                                                 .reference
                                                                 .delete();
                                                           },

@@ -1,3 +1,18 @@
 {
-  "indexes": []
+  "indexes": [
+    {
+      "collectionGroup": "roomTypes",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "hotel_id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "name",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ]
 }
