@@ -159,7 +159,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           Text(
                             valueOrDefault<String>(
                               _model.hotel?.name,
-                              'No Hotel Name',
+                              'No Motel Name',
                             ),
                             style: FlutterFlowTheme.of(context)
                                 .headlineSmall
