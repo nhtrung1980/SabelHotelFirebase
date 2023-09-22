@@ -151,46 +151,56 @@ class _ManagementWidgetState extends State<ManagementWidget> {
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
                               children: [
-                                Container(
-                                  width: 100.0,
-                                  height: 100.0,
-                                  decoration: BoxDecoration(
-                                    color: Color(0x809489F5),
-                                    borderRadius: BorderRadius.circular(16.0),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 16.0, 16.0, 16.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          Icons.room_preferences_rounded,
-                                          color: FlutterFlowTheme.of(context)
-                                              .tertiary,
-                                          size: 50.0,
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 16.0, 0.0, 0.0),
-                                          child: Text(
-                                            'Loại phòng',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Manrope',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .tertiary,
-                                                  fontSize: 20.0,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    context.pushNamed('roomType');
+                                  },
+                                  child: Container(
+                                    width: 100.0,
+                                    height: 100.0,
+                                    decoration: BoxDecoration(
+                                      color: Color(0x809489F5),
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          16.0, 16.0, 16.0, 16.0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.room_preferences_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .tertiary,
+                                            size: 50.0,
                                           ),
-                                        ),
-                                      ],
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 16.0, 0.0, 0.0),
+                                            child: Text(
+                                              'Loại phòng',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Manrope',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .tertiary,
+                                                    fontSize: 20.0,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),

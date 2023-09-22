@@ -111,15 +111,56 @@ class _RoomTypeWidgetState extends State<RoomTypeWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 24.0, 0.0, 0.0),
-                          child: Text(
-                            'Room Types',
-                            style: FlutterFlowTheme.of(context)
-                                .headlineSmall
-                                .override(
-                                  fontFamily: 'Urbanist',
-                                  fontSize: 24.0,
-                                  fontWeight: FontWeight.bold,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 8.0, 0.0),
+                                    child: Icon(
+                                      Icons.settings_outlined,
+                                      color:
+                                          FlutterFlowTheme.of(context).tertiary,
+                                      size: 30.0,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Room Types',
+                                    style: FlutterFlowTheme.of(context)
+                                        .headlineSmall
+                                        .override(
+                                          fontFamily: 'Urbanist',
+                                          fontSize: 24.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 32.0, 0.0),
+                                child: FlutterFlowIconButton(
+                                  borderRadius: 25.0,
+                                  borderWidth: 1.0,
+                                  buttonSize: 50.0,
+                                  fillColor:
+                                      FlutterFlowTheme.of(context).alternate,
+                                  icon: Icon(
+                                    Icons.keyboard_arrow_left,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    size: 30.0,
+                                  ),
+                                  onPressed: () async {
+                                    context.safePop();
+                                  },
                                 ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
