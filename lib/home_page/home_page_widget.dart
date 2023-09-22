@@ -1,4 +1,5 @@
-import '/components/motel_title_widget.dart';
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/components/side_bar_nav_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -6,6 +7,8 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -74,6 +77,15 @@ class _HomePageWidgetState extends State<HomePageWidget>
     super.initState();
     _model = createModel(context, () => HomePageModel());
 
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.hotel = await queryHotelsRecordOnce(
+        queryBuilder: (hotelsRecord) =>
+            hotelsRecord.where('user_id', isEqualTo: currentUserUid),
+        singleRecord: true,
+      ).then((s) => s.firstOrNull);
+    });
+
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -139,17 +151,35 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
+                      padding: EdgeInsetsDirectional.fromSTEB(
+                          16.0, 24.0, 16.0, 16.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          wrapWithModel(
-                            model: _model.motelTitleModel,
-                            updateCallback: () => setState(() {}),
-                            child: MotelTitleWidget(),
+                          Text(
+                            _model.hotel!.name,
+                            style: FlutterFlowTheme.of(context)
+                                .headlineSmall
+                                .override(
+                                  fontFamily: 'Urbanist',
+                                  fontSize: 24.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 4.0, 0.0, 0.0),
+                            child: Text(
+                              _model.hotel!.address,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodySmall
+                                  .override(
+                                    fontFamily: 'Manrope',
+                                    fontSize: 16.0,
+                                  ),
+                            ),
                           ),
                         ],
                       ),
