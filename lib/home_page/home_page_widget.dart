@@ -190,22 +190,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   ),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 4.0, 0.0, 0.0),
-                            child: Text(
-                              valueOrDefault<String>(
-                                FFAppState().hotel?.id,
-                                '-',
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodySmall
-                                  .override(
-                                    fontFamily: 'Manrope',
-                                    fontSize: 16.0,
-                                  ),
-                            ),
-                          ),
                         ],
                       ),
                     ),

@@ -16,6 +16,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:text_search/text_search.dart';
 import 'room_type_model.dart';
 export 'room_type_model.dart';
 
@@ -197,7 +198,6 @@ class _RoomTypeWidgetState extends State<RoomTypeWidget> {
                                         Duration(milliseconds: 2000),
                                         () => setState(() {}),
                                       ),
-                                      autofocus: true,
                                       textCapitalization:
                                           TextCapitalization.none,
                                       textInputAction: TextInputAction.go,
@@ -299,8 +299,64 @@ class _RoomTypeWidgetState extends State<RoomTypeWidget> {
                                       size: 30.0,
                                     ),
                                     showLoadingIndicator: true,
-                                    onPressed: () {
-                                      print('IconButton pressed ...');
+                                    onPressed: () async {
+                                      await queryRoomTypesRecordOnce()
+                                          .then(
+                                            (records) =>
+                                                _model.simpleSearchResults =
+                                                    TextSearch(
+                                              records
+                                                  .map(
+                                                    (record) => TextSearchItem(
+                                                        record, [
+                                                      record.name!,
+                                                      record.description!
+                                                    ]),
+                                                  )
+                                                  .toList(),
+                                            )
+                                                        .search(_model
+                                                            .textController
+                                                            .text)
+                                                        .map((r) => r.object)
+                                                        .toList(),
+                                          )
+                                          .onError((_, __) =>
+                                              _model.simpleSearchResults = [])
+                                          .whenComplete(() => setState(() {}));
+                                    },
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 16.0, 0.0),
+                                  child: FlutterFlowIconButton(
+                                    borderColor:
+                                        FlutterFlowTheme.of(context).primary,
+                                    borderRadius: 25.0,
+                                    borderWidth: 1.0,
+                                    buttonSize: 50.0,
+                                    fillColor:
+                                        FlutterFlowTheme.of(context).accent1,
+                                    icon: Icon(
+                                      Icons.refresh,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      size: 30.0,
+                                    ),
+                                    showLoadingIndicator: true,
+                                    onPressed: () async {
+                                      _model.roomTypeListCopy =
+                                          await queryRoomTypesRecordOnce(
+                                        queryBuilder: (roomTypesRecord) =>
+                                            roomTypesRecord
+                                                .where('hotel_id',
+                                                    isEqualTo:
+                                                        FFAppState().hotel?.id)
+                                                .orderBy('name'),
+                                      );
+
+                                      setState(() {});
                                     },
                                   ),
                                 ),
@@ -452,13 +508,28 @@ class _RoomTypeWidgetState extends State<RoomTypeWidget> {
                                                             size: 24.0,
                                                           ),
                                                         ),
-                                                        FaIcon(
-                                                          FontAwesomeIcons
-                                                              .trashAlt,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .error,
-                                                          size: 24.0,
+                                                        InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            await typesItem
+                                                                .reference
+                                                                .delete();
+                                                          },
+                                                          child: FaIcon(
+                                                            FontAwesomeIcons
+                                                                .trashAlt,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .error,
+                                                            size: 24.0,
+                                                          ),
                                                         ),
                                                       ],
                                                     ),
