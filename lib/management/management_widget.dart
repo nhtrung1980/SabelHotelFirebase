@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/motel_title_widget.dart';
 import '/components/side_bar_nav_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -96,39 +97,16 @@ class _ManagementWidgetState extends State<ManagementWidget> {
                 children: [
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 24.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          valueOrDefault<String>(
-                            _model.hotel?.name,
-                            'No Motel Name',
-                          ),
-                          style: FlutterFlowTheme.of(context)
-                              .headlineSmall
-                              .override(
-                                fontFamily: 'Urbanist',
-                                fontSize: 24.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 4.0, 0.0, 0.0),
-                          child: Text(
-                            valueOrDefault<String>(
-                              _model.hotel?.address,
-                              'No Address',
-                            ),
-                            style:
-                                FlutterFlowTheme.of(context).bodySmall.override(
-                                      fontFamily: 'Manrope',
-                                      fontSize: 16.0,
-                                    ),
-                          ),
+                        wrapWithModel(
+                          model: _model.motelTitleModel,
+                          updateCallback: () => setState(() {}),
+                          child: MotelTitleWidget(),
                         ),
                       ],
                     ),

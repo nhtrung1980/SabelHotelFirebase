@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/motel_title_widget.dart';
 import '/components/side_bar_nav_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -24,16 +25,20 @@ class HomePageModel extends FlutterFlowModel {
   HotelsRecord? hotel;
   // Model for sideBarNav component.
   late SideBarNavModel sideBarNavModel;
+  // Model for MotelTitle component.
+  late MotelTitleModel motelTitleModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
     sideBarNavModel = createModel(context, () => SideBarNavModel());
+    motelTitleModel = createModel(context, () => MotelTitleModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
     sideBarNavModel.dispose();
+    motelTitleModel.dispose();
   }
 
   /// Action blocks are added here.
