@@ -84,6 +84,9 @@ class _HomePageWidgetState extends State<HomePageWidget>
             hotelsRecord.where('user_id', isEqualTo: currentUserUid),
         singleRecord: true,
       ).then((s) => s.firstOrNull);
+      setState(() {
+        FFAppState().hotel = _model.hotel?.reference;
+      });
     });
 
     setupAnimations(
@@ -178,6 +181,22 @@ class _HomePageWidgetState extends State<HomePageWidget>
                               valueOrDefault<String>(
                                 _model.hotel?.address,
                                 'No Address',
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodySmall
+                                  .override(
+                                    fontFamily: 'Manrope',
+                                    fontSize: 16.0,
+                                  ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 4.0, 0.0, 0.0),
+                            child: Text(
+                              valueOrDefault<String>(
+                                FFAppState().hotel?.id,
+                                '-',
                               ),
                               style: FlutterFlowTheme.of(context)
                                   .bodySmall
