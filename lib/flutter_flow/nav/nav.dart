@@ -142,6 +142,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               path: 'hotel',
               requireAuth: true,
               builder: (context, params) => HotelWidget(),
+            ),
+            FFRoute(
+              name: 'management',
+              path: 'management',
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'management')
+                  : ManagementWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

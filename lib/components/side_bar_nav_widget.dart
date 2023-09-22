@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'side_bar_nav_model.dart';
@@ -134,31 +135,45 @@ class _SideBarNavWidgetState extends State<SideBarNavWidget> {
             ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
-              child: Container(
-                width: double.infinity,
-                height: 48.0,
-                decoration: BoxDecoration(
-                  color: widget.twoBG,
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 4.0, 4.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
-                        child: widget.twoIcon!,
-                      ),
-                      Text(
-                        'Courses',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Manrope',
-                              fontSize: 16.0,
-                            ),
-                      ),
-                    ],
+              child: InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  context.pushNamed('management');
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 48.0,
+                  decoration: BoxDecoration(
+                    color: widget.threeColor,
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(8.0, 4.0, 4.0, 4.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 12.0, 0.0),
+                          child: FaIcon(
+                            FontAwesomeIcons.cog,
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            size: 24.0,
+                          ),
+                        ),
+                        Text(
+                          'Management',
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Manrope',
+                                    fontSize: 16.0,
+                                  ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
