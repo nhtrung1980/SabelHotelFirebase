@@ -149,6 +149,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'management')
                   : ManagementWidget(),
+            ),
+            FFRoute(
+              name: 'roomType',
+              path: 'roomType',
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'roomType')
+                  : RoomTypeWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

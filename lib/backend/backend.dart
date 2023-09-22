@@ -7,6 +7,9 @@ import 'schema/util/firestore_util.dart';
 
 import 'schema/users_record.dart';
 import 'schema/hotels_record.dart';
+import 'schema/room_types_record.dart';
+import 'schema/rules_record.dart';
+import 'schema/rooms_record.dart';
 
 export 'dart:async' show StreamSubscription;
 export 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,6 +19,9 @@ export 'schema/util/schema_util.dart';
 
 export 'schema/users_record.dart';
 export 'schema/hotels_record.dart';
+export 'schema/room_types_record.dart';
+export 'schema/rules_record.dart';
+export 'schema/rooms_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -86,6 +92,117 @@ Future<List<HotelsRecord>> queryHotelsRecordOnce({
     queryCollectionOnce(
       HotelsRecord.collection,
       HotelsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query RoomTypesRecords (as a Stream and as a Future).
+Future<int> queryRoomTypesRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      RoomTypesRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<RoomTypesRecord>> queryRoomTypesRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      RoomTypesRecord.collection,
+      RoomTypesRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<RoomTypesRecord>> queryRoomTypesRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      RoomTypesRecord.collection,
+      RoomTypesRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query RulesRecords (as a Stream and as a Future).
+Future<int> queryRulesRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      RulesRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<RulesRecord>> queryRulesRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      RulesRecord.collection,
+      RulesRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<RulesRecord>> queryRulesRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      RulesRecord.collection,
+      RulesRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query RoomsRecords (as a Stream and as a Future).
+Future<int> queryRoomsRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      RoomsRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<RoomsRecord>> queryRoomsRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      RoomsRecord.collection,
+      RoomsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<RoomsRecord>> queryRoomsRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      RoomsRecord.collection,
+      RoomsRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

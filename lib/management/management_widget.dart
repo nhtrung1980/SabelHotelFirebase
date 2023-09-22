@@ -1,4 +1,3 @@
-import '/components/motel_title_widget.dart';
 import '/components/side_bar_nav_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -89,10 +88,19 @@ class _ManagementWidgetState extends State<ManagementWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        wrapWithModel(
-                          model: _model.motelTitleModel,
-                          updateCallback: () => setState(() {}),
-                          child: MotelTitleWidget(),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 24.0, 0.0, 0.0),
+                          child: Text(
+                            'Quản lý chức năng',
+                            style: FlutterFlowTheme.of(context)
+                                .headlineSmall
+                                .override(
+                                  fontFamily: 'Urbanist',
+                                  fontSize: 24.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
                         ),
                       ],
                     ),
@@ -133,7 +141,7 @@ class _ManagementWidgetState extends State<ManagementWidget> {
                                       kBreakpointLarge) {
                                     return 6;
                                   } else {
-                                    return 4;
+                                    return 6;
                                   }
                                 }(),
                                 crossAxisSpacing: 16.0,

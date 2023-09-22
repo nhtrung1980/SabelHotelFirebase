@@ -51,6 +51,11 @@ class UsersRecord extends FirestoreRecord {
   bool get isMaster => _isMaster ?? false;
   bool hasIsMaster() => _isMaster != null;
 
+  // "hotel_id" field.
+  String? _hotelId;
+  String get hotelId => _hotelId ?? '';
+  bool hasHotelId() => _hotelId != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -59,6 +64,7 @@ class UsersRecord extends FirestoreRecord {
     _createdTime = snapshotData['created_time'] as DateTime?;
     _phoneNumber = snapshotData['phone_number'] as String?;
     _isMaster = snapshotData['is_master'] as bool?;
+    _hotelId = snapshotData['hotel_id'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -102,6 +108,7 @@ Map<String, dynamic> createUsersRecordData({
   DateTime? createdTime,
   String? phoneNumber,
   bool? isMaster,
+  String? hotelId,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -112,6 +119,7 @@ Map<String, dynamic> createUsersRecordData({
       'created_time': createdTime,
       'phone_number': phoneNumber,
       'is_master': isMaster,
+      'hotel_id': hotelId,
     }.withoutNulls,
   );
 
@@ -129,7 +137,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.uid == e2?.uid &&
         e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
-        e1?.isMaster == e2?.isMaster;
+        e1?.isMaster == e2?.isMaster &&
+        e1?.hotelId == e2?.hotelId;
   }
 
   @override
@@ -140,7 +149,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.uid,
         e?.createdTime,
         e?.phoneNumber,
-        e?.isMaster
+        e?.isMaster,
+        e?.hotelId
       ]);
 
   @override

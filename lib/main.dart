@@ -131,6 +131,7 @@ class _NavBarPageState extends State<NavBarPage> {
       'courses': CoursesWidget(),
       'profilePage': ProfilePageWidget(),
       'management': ManagementWidget(),
+      'roomType': RoomTypeWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -174,6 +175,14 @@ class _NavBarPageState extends State<NavBarPage> {
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.account_circle_outlined,
+                size: 24.0,
+              ),
+              label: '•',
+              tooltip: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.add_business_rounded,
                 size: 24.0,
               ),
               label: '•',
