@@ -18,20 +18,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class RoomTypeModel extends FlutterFlowModel {
-  ///  Local state fields for this page.
-
-  List<RoomTypesRecord> roomTypes = [];
-  void addToRoomTypes(RoomTypesRecord item) => roomTypes.add(item);
-  void removeFromRoomTypes(RoomTypesRecord item) => roomTypes.remove(item);
-  void removeAtIndexFromRoomTypes(int index) => roomTypes.removeAt(index);
-  void updateRoomTypesAtIndex(int index, Function(RoomTypesRecord) updateFn) =>
-      roomTypes[index] = updateFn(roomTypes[index]);
-
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in roomType widget.
-  HotelsRecord? hotel;
+  List<RoomTypesRecord>? roomTypeList;
   // Model for sideBarNav component.
   late SideBarNavModel sideBarNavModel;
   // State field(s) for TextField widget.

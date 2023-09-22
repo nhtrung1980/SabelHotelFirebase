@@ -38,11 +38,11 @@ class _RoomTypeWidgetState extends State<RoomTypeWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.hotel = await queryHotelsRecordOnce(
-        queryBuilder: (hotelsRecord) =>
-            hotelsRecord.where('user_id', isEqualTo: currentUserUid),
-        singleRecord: true,
-      ).then((s) => s.firstOrNull);
+      _model.roomTypeList = await queryRoomTypesRecordOnce(
+        queryBuilder: (roomTypesRecord) => roomTypesRecord
+            .where('hotel_id', isEqualTo: FFAppState().hotel?.id)
+            .orderBy('name'),
+      );
     });
 
     _model.textController ??= TextEditingController();
@@ -360,35 +360,13 @@ class _RoomTypeWidgetState extends State<RoomTypeWidget> {
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     16.0, 0.0, 16.0, 16.0),
-                                child: StreamBuilder<List<RoomTypesRecord>>(
-                                  stream: queryRoomTypesRecord(
-                                    queryBuilder: (roomTypesRecord) =>
-                                        roomTypesRecord
-                                            .where('hotel_id',
-                                                isEqualTo:
-                                                    _model.hotel?.reference.id)
-                                            .orderBy('name'),
-                                  ),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 50.0,
-                                          height: 50.0,
-                                          child: CircularProgressIndicator(
-                                            valueColor:
-                                                AlwaysStoppedAnimation<Color>(
-                                              FlutterFlowTheme.of(context)
-                                                  .primary,
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                    List<RoomTypesRecord>
-                                        dataTableRoomTypesRecordList =
-                                        snapshot.data!;
+                                child: Builder(
+                                  builder: (context) {
+                                    final types = _model.roomTypeList
+                                            ?.map((e) => e)
+                                            .toList()
+                                            ?.toList() ??
+                                        [];
                                     return DataTable2(
                                       columns: [
                                         DataColumn2(
@@ -429,19 +407,17 @@ class _RoomTypeWidgetState extends State<RoomTypeWidget> {
                                           ),
                                         ),
                                       ],
-                                      rows: dataTableRoomTypesRecordList
-                                          .mapIndexed((dataTableIndex,
-                                                  dataTableRoomTypesRecord) =>
+                                      rows: types
+                                          .mapIndexed((typesIndex, typesItem) =>
                                               [
                                                 Text(
-                                                  dataTableRoomTypesRecord.name,
+                                                  typesItem.name,
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium,
                                                 ),
                                                 Text(
-                                                  dataTableRoomTypesRecord
-                                                      .description,
+                                                  typesItem.description,
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium,

@@ -402,6 +402,8 @@ class _AddEditRoomTypeWidgetState extends State<AddEditRoomTypeWidget> {
                                               roomTypesRecordReference);
                                     }
 
+                                    Navigator.pop(context);
+
                                     setState(() {});
                                   },
                                   text: 'Save',
