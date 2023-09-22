@@ -1,9 +1,12 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -42,6 +45,8 @@ class _SignInWidgetState extends State<SignInWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
@@ -326,8 +331,25 @@ class _SignInWidgetState extends State<SignInWidget> {
                                         return;
                                       }
 
-                                      context.goNamedAuth(
-                                          'homePage', context.mounted);
+                                      _model.hotelRef =
+                                          await queryHotelsRecordOnce(
+                                        queryBuilder: (hotelsRecord) =>
+                                            hotelsRecord.where('user_id',
+                                                isEqualTo: valueOrDefault(
+                                                    currentUserDocument
+                                                        ?.hotelId,
+                                                    '')),
+                                        singleRecord: true,
+                                      ).then((s) => s.firstOrNull);
+                                      if ((_model.hotelRef != null) == true) {
+                                        context.pushNamedAuth(
+                                            'homePage', context.mounted);
+                                      } else {
+                                        context.pushNamedAuth(
+                                            'hotel', context.mounted);
+                                      }
+
+                                      setState(() {});
                                     },
                                     child: Container(
                                       width: 150.0,

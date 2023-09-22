@@ -53,6 +53,8 @@ class _MotelTitleWidgetState extends State<MotelTitleWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Visibility(
       visible: responsiveVisibility(
         context: context,

@@ -55,6 +55,8 @@ class _SideBarNavWidgetState extends State<SideBarNavWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Container(
       width: 230.0,
       height: double.infinity,

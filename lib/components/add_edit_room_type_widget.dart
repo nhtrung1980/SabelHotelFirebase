@@ -64,6 +64,8 @@ class _AddEditRoomTypeWidgetState extends State<AddEditRoomTypeWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return ClipRRect(
       child: BackdropFilter(
         filter: ImageFilter.blur(

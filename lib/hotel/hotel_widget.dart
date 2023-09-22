@@ -66,6 +66,8 @@ class _HotelWidgetState extends State<HotelWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
@@ -474,6 +476,12 @@ class _HotelWidgetState extends State<HotelWidget> {
                                                           ),
                                                           hotelsRecordReference);
                                                   if (_model.hotelRep != null) {
+                                                    await currentUserReference!
+                                                        .update(
+                                                            createUsersRecordData(
+                                                      hotelId: _model.hotelRep
+                                                          ?.reference.id,
+                                                    ));
                                                     ScaffoldMessenger.of(
                                                             context)
                                                         .showSnackBar(
