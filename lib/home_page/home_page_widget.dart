@@ -159,7 +159,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                           Text(
                             valueOrDefault<String>(
                               _model.hotel?.name,
-                              'No motel name',
+                              'No Hotel Name',
                             ),
                             style: FlutterFlowTheme.of(context)
                                 .headlineSmall
@@ -173,7 +173,10 @@ class _HomePageWidgetState extends State<HomePageWidget>
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 4.0, 0.0, 0.0),
                             child: Text(
-                              _model.hotel!.address,
+                              valueOrDefault<String>(
+                                _model.hotel?.address,
+                                'No Address',
+                              ),
                               style: FlutterFlowTheme.of(context)
                                   .bodySmall
                                   .override(
