@@ -8,7 +8,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -79,11 +78,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.hotel = await queryHotelsRecordOnce(
-        queryBuilder: (hotelsRecord) =>
-            hotelsRecord.where('user_id', isEqualTo: currentUserUid),
-        singleRecord: true,
-      ).then((s) => s.firstOrNull);
+      _model.hotel = await HotelsRecord.getDocumentOnce(FFAppState().hotelId!);
     });
 
     setupAnimations(
