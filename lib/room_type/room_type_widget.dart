@@ -145,6 +145,19 @@ class _RoomTypeWidgetState extends State<RoomTypeWidget> {
                                           fontWeight: FontWeight.bold,
                                         ),
                                   ),
+                                  Text(
+                                    valueOrDefault<String>(
+                                      FFAppState().hotelId?.id,
+                                      '-',
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .headlineSmall
+                                        .override(
+                                          fontFamily: 'Urbanist',
+                                          fontSize: 24.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
                                 ],
                               ),
                               Padding(
