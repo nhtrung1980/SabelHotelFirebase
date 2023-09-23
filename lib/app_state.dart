@@ -21,7 +21,7 @@ class FFAppState extends ChangeNotifier {
   Future initializePersistedState() async {
     secureStorage = FlutterSecureStorage();
     await _safeInitAsync(() async {
-      _hotel = (await secureStorage.getString('ff_hotel'))?.ref ?? _hotel;
+      _hotelId = (await secureStorage.getString('ff_hotelId'))?.ref ?? _hotelId;
     });
   }
 
@@ -32,17 +32,17 @@ class FFAppState extends ChangeNotifier {
 
   late FlutterSecureStorage secureStorage;
 
-  DocumentReference? _hotel;
-  DocumentReference? get hotel => _hotel;
-  set hotel(DocumentReference? _value) {
-    _hotel = _value;
+  DocumentReference? _hotelId;
+  DocumentReference? get hotelId => _hotelId;
+  set hotelId(DocumentReference? _value) {
+    _hotelId = _value;
     _value != null
-        ? secureStorage.setString('ff_hotel', _value.path)
-        : secureStorage.remove('ff_hotel');
+        ? secureStorage.setString('ff_hotelId', _value.path)
+        : secureStorage.remove('ff_hotelId');
   }
 
-  void deleteHotel() {
-    secureStorage.delete(key: 'ff_hotel');
+  void deleteHotelId() {
+    secureStorage.delete(key: 'ff_hotelId');
   }
 }
 

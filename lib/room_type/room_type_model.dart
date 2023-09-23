@@ -12,6 +12,7 @@ import 'package:collection/collection.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -20,11 +21,21 @@ import 'package:text_search/text_search.dart';
 class RoomTypeModel extends FlutterFlowModel {
   ///  Local state fields for this page.
 
-  bool showFullList = false;
+  List<RoomTypesRecord> roomTypesList = [];
+  void addToRoomTypesList(RoomTypesRecord item) => roomTypesList.add(item);
+  void removeFromRoomTypesList(RoomTypesRecord item) =>
+      roomTypesList.remove(item);
+  void removeAtIndexFromRoomTypesList(int index) =>
+      roomTypesList.removeAt(index);
+  void updateRoomTypesListAtIndex(
+          int index, Function(RoomTypesRecord) updateFn) =>
+      roomTypesList[index] = updateFn(roomTypesList[index]);
 
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Stores action output result for [Firestore Query - Query a collection] action in roomType widget.
+  RoomTypesRecord? roomTypesResp;
   // Model for sideBarNav component.
   late SideBarNavModel sideBarNavModel;
   // State field(s) for TextField widget.
@@ -38,6 +49,7 @@ class RoomTypeModel extends FlutterFlowModel {
 
   void initState(BuildContext context) {
     sideBarNavModel = createModel(context, () => SideBarNavModel());
+    dataTableShowLogs = false; // Disables noisy DataTable2 debug statements.
     dataTableShowLogs = false; // Disables noisy DataTable2 debug statements.
   }
 

@@ -85,7 +85,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
         singleRecord: true,
       ).then((s) => s.firstOrNull);
       setState(() {
-        FFAppState().hotel = _model.hotel?.reference;
+        FFAppState().hotelId = _model.hotel?.reference;
       });
     });
 

@@ -378,7 +378,7 @@ class _AddEditRoomTypeWidgetState extends State<AddEditRoomTypeWidget> {
                                         name: _model.nameController.text,
                                         description:
                                             _model.descriptionController.text,
-                                        hotelId: FFAppState().hotel?.id,
+                                        hotelId: FFAppState().hotelId?.id,
                                       ));
                                     } else {
                                       var roomTypesRecordReference =
@@ -388,7 +388,7 @@ class _AddEditRoomTypeWidgetState extends State<AddEditRoomTypeWidget> {
                                         name: _model.nameController.text,
                                         description:
                                             _model.descriptionController.text,
-                                        hotelId: FFAppState().hotel?.id,
+                                        hotelId: FFAppState().hotelId?.id,
                                       ));
                                       _model.typeRep =
                                           RoomTypesRecord.getDocumentFromData(
@@ -397,7 +397,8 @@ class _AddEditRoomTypeWidgetState extends State<AddEditRoomTypeWidget> {
                                                     _model.nameController.text,
                                                 description: _model
                                                     .descriptionController.text,
-                                                hotelId: FFAppState().hotel?.id,
+                                                hotelId:
+                                                    FFAppState().hotelId?.id,
                                               ),
                                               roomTypesRecordReference);
                                     }

@@ -342,7 +342,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                         singleRecord: true,
                                       ).then((s) => s.firstOrNull);
                                       setState(() {
-                                        FFAppState().hotel =
+                                        FFAppState().hotelId =
                                             _model.hotelRef?.reference;
                                       });
 

@@ -12,6 +12,7 @@ import 'package:collection/collection.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +36,20 @@ class _RoomTypeWidgetState extends State<RoomTypeWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => RoomTypeModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.roomTypesResp = await queryRoomTypesRecordOnce(
+        queryBuilder: (roomTypesRecord) => roomTypesRecord
+            .where('hotel_id', isEqualTo: currentUserUid)
+            .orderBy('name'),
+        singleRecord: true,
+      ).then((s) => s.firstOrNull);
+      setState(() {
+        _model.roomTypesList =
+            _model.simpleSearchResults.toList().cast<RoomTypesRecord>();
+      });
+    });
 
     _model.textController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -338,8 +353,9 @@ class _RoomTypeWidgetState extends State<RoomTypeWidget> {
                                         queryBuilder: (roomTypesRecord) =>
                                             roomTypesRecord
                                                 .where('hotel_id',
-                                                    isEqualTo:
-                                                        FFAppState().hotel?.id)
+                                                    isEqualTo: FFAppState()
+                                                        .hotelId
+                                                        ?.id)
                                                 .orderBy('name'),
                                       );
 
@@ -406,13 +422,8 @@ class _RoomTypeWidgetState extends State<RoomTypeWidget> {
                                 child: StreamBuilder<List<RoomTypesRecord>>(
                                   stream: queryRoomTypesRecord(
                                     queryBuilder: (roomTypesRecord) =>
-                                        roomTypesRecord
-                                            .where('hotel_id',
-                                                isEqualTo:
-                                                    FFAppState().hotel?.id != ''
-                                                        ? FFAppState().hotel?.id
-                                                        : null)
-                                            .orderBy('name'),
+                                        roomTypesRecord.where('hotel_id',
+                                            isEqualTo: currentUserUid),
                                   ),
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
@@ -637,6 +648,244 @@ class _RoomTypeWidgetState extends State<RoomTypeWidget> {
                                               ]
                                                   .map((c) => DataCell(c))
                                                   .toList())
+                                          .map((e) => DataRow(cells: e))
+                                          .toList(),
+                                      headingRowColor:
+                                          MaterialStateProperty.all(
+                                        FlutterFlowTheme.of(context)
+                                            .primaryBackground,
+                                      ),
+                                      headingRowHeight: 50.0,
+                                      dataRowColor: MaterialStateProperty.all(
+                                        FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                      ),
+                                      dataRowHeight: 50.0,
+                                      border: TableBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(0.0),
+                                      ),
+                                      dividerThickness: 1.0,
+                                      showBottomBorder: true,
+                                      minWidth: 49.0,
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    16.0, 0.0, 16.0, 16.0),
+                                child: Builder(
+                                  builder: (context) {
+                                    final types = _model.roomTypesList
+                                        .map((e) => e)
+                                        .toList();
+                                    return DataTable2(
+                                      columns: [
+                                        DataColumn2(
+                                          label: DefaultTextStyle.merge(
+                                            softWrap: true,
+                                            child: Text(
+                                              'Room type',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelLarge,
+                                            ),
+                                          ),
+                                        ),
+                                        DataColumn2(
+                                          label: DefaultTextStyle.merge(
+                                            softWrap: true,
+                                            child: Text(
+                                              'Description',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelLarge,
+                                            ),
+                                          ),
+                                        ),
+                                        DataColumn2(
+                                          label: DefaultTextStyle.merge(
+                                            softWrap: true,
+                                            child: Align(
+                                              alignment: AlignmentDirectional(
+                                                  1.00, 0.00),
+                                              child: Text(
+                                                'Actions',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLarge,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                      rows: types
+                                          .mapIndexed(
+                                              (typesIndex, typesItem) => [
+                                                    Text(
+                                                      typesItem.name,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium,
+                                                    ),
+                                                    Text(
+                                                      typesItem.description,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium,
+                                                    ),
+                                                    Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              1.00, 0.00),
+                                                      child: Container(
+                                                        width: 100.0,
+                                                        height: 50.0,
+                                                        decoration:
+                                                            BoxDecoration(),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .end,
+                                                          children: [
+                                                            Builder(
+                                                              builder:
+                                                                  (context) =>
+                                                                      Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            16.0,
+                                                                            0.0),
+                                                                child: InkWell(
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  focusColor: Colors
+                                                                      .transparent,
+                                                                  hoverColor: Colors
+                                                                      .transparent,
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  onTap:
+                                                                      () async {
+                                                                    await showAlignedDialog(
+                                                                      context:
+                                                                          context,
+                                                                      isGlobal:
+                                                                          true,
+                                                                      avoidOverflow:
+                                                                          false,
+                                                                      targetAnchor: AlignmentDirectional(
+                                                                              0.0,
+                                                                              0.0)
+                                                                          .resolve(
+                                                                              Directionality.of(context)),
+                                                                      followerAnchor: AlignmentDirectional(
+                                                                              0.0,
+                                                                              0.0)
+                                                                          .resolve(
+                                                                              Directionality.of(context)),
+                                                                      builder:
+                                                                          (dialogContext) {
+                                                                        return Material(
+                                                                          color:
+                                                                              Colors.transparent,
+                                                                          child:
+                                                                              GestureDetector(
+                                                                            onTap: () =>
+                                                                                FocusScope.of(context).requestFocus(_model.unfocusNode),
+                                                                            child:
+                                                                                AddEditRoomTypeWidget(
+                                                                              roomType: typesItem,
+                                                                            ),
+                                                                          ),
+                                                                        );
+                                                                      },
+                                                                    ).then((value) =>
+                                                                        setState(
+                                                                            () {}));
+                                                                  },
+                                                                  child: Icon(
+                                                                    Icons.edit,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .tertiary,
+                                                                    size: 24.0,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            InkWell(
+                                                              splashColor: Colors
+                                                                  .transparent,
+                                                              focusColor: Colors
+                                                                  .transparent,
+                                                              hoverColor: Colors
+                                                                  .transparent,
+                                                              highlightColor:
+                                                                  Colors
+                                                                      .transparent,
+                                                              onTap: () async {
+                                                                var confirmDialogResponse =
+                                                                    await showDialog<
+                                                                            bool>(
+                                                                          context:
+                                                                              context,
+                                                                          builder:
+                                                                              (alertDialogContext) {
+                                                                            return AlertDialog(
+                                                                              title: Text('Confirm'),
+                                                                              content: Text('Do you want to delete?'),
+                                                                              actions: [
+                                                                                TextButton(
+                                                                                  onPressed: () => Navigator.pop(alertDialogContext, false),
+                                                                                  child: Text('Cancel'),
+                                                                                ),
+                                                                                TextButton(
+                                                                                  onPressed: () => Navigator.pop(alertDialogContext, true),
+                                                                                  child: Text('Confirm'),
+                                                                                ),
+                                                                              ],
+                                                                            );
+                                                                          },
+                                                                        ) ??
+                                                                        false;
+                                                                if (confirmDialogResponse) {
+                                                                  await typesItem
+                                                                      .reference
+                                                                      .delete();
+                                                                } else {
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                }
+                                                              },
+                                                              child: FaIcon(
+                                                                FontAwesomeIcons
+                                                                    .trashAlt,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .error,
+                                                                size: 24.0,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ]
+                                                      .map((c) => DataCell(c))
+                                                      .toList())
                                           .map((e) => DataRow(cells: e))
                                           .toList(),
                                       headingRowColor:
