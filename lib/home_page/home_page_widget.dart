@@ -84,9 +84,6 @@ class _HomePageWidgetState extends State<HomePageWidget>
             hotelsRecord.where('user_id', isEqualTo: currentUserUid),
         singleRecord: true,
       ).then((s) => s.firstOrNull);
-      setState(() {
-        FFAppState().hotelId = _model.hotel?.reference;
-      });
     });
 
     setupAnimations(

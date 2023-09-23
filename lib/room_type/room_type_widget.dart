@@ -421,9 +421,11 @@ class _RoomTypeWidgetState extends State<RoomTypeWidget> {
                                 child: StreamBuilder<List<RoomTypesRecord>>(
                                   stream: queryRoomTypesRecord(
                                     queryBuilder: (roomTypesRecord) =>
-                                        roomTypesRecord.where('hotel_id',
-                                            isEqualTo:
-                                                FFAppState().hotelId?.id),
+                                        roomTypesRecord
+                                            .where('hotel_id',
+                                                isEqualTo:
+                                                    FFAppState().hotelId?.id)
+                                            .orderBy('name'),
                                   ),
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
