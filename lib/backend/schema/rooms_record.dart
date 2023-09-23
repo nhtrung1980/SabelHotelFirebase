@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:from_css_color/from_css_color.dart';
+import '/backend/algolia/algolia_manager.dart';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -74,6 +76,40 @@ class RoomsRecord extends FirestoreRecord {
     DocumentReference reference,
   ) =>
       RoomsRecord._(reference, mapFromFirestore(data));
+
+  static RoomsRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
+      RoomsRecord.getDocumentFromData(
+        {
+          'hotel_id': snapshot.data['hotel_id'],
+          'name': snapshot.data['name'],
+          'room_type_id': snapshot.data['room_type_id'],
+          'rule_id': snapshot.data['rule_id'],
+          'is_clearned': snapshot.data['is_clearned'],
+          'clearn_request_time': safeGet(
+            () => DateTime.fromMillisecondsSinceEpoch(
+                snapshot.data['clearn_request_time']),
+          ),
+        },
+        RoomsRecord.collection.doc(snapshot.objectID),
+      );
+
+  static Future<List<RoomsRecord>> search({
+    String? term,
+    FutureOr<LatLng>? location,
+    int? maxResults,
+    double? searchRadiusMeters,
+    bool useCache = false,
+  }) =>
+      FFAlgoliaManager.instance
+          .algoliaQuery(
+            index: 'rooms',
+            term: term,
+            maxResults: maxResults,
+            location: location,
+            searchRadiusMeters: searchRadiusMeters,
+            useCache: useCache,
+          )
+          .then((r) => r.map(fromAlgolia).toList());
 
   @override
   String toString() =>

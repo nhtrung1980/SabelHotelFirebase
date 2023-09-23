@@ -15,7 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:text_search/text_search.dart';
 import 'room_type_model.dart';
 export 'room_type_model.dart';
 
@@ -290,27 +289,15 @@ class _RoomTypeWidgetState extends State<RoomTypeWidget> {
                                     ),
                                     showLoadingIndicator: true,
                                     onPressed: () async {
-                                      await queryRoomTypesRecordOnce()
-                                          .then(
-                                            (records) =>
-                                                _model.simpleSearchResults =
-                                                    TextSearch(
-                                              records
-                                                  .map(
-                                                    (record) => TextSearchItem(
-                                                        record, [record.name!]),
-                                                  )
-                                                  .toList(),
-                                            )
-                                                        .search(_model
-                                                            .textController
-                                                            .text)
-                                                        .map((r) => r.object)
-                                                        .take(5)
-                                                        .toList(),
-                                          )
+                                      safeSetState(() =>
+                                          _model.algoliaSearchResults = null);
+                                      await RoomTypesRecord.search(
+                                        term: _model.textController.text,
+                                      )
+                                          .then((r) =>
+                                              _model.algoliaSearchResults = r)
                                           .onError((_, __) =>
-                                              _model.simpleSearchResults = [])
+                                              _model.algoliaSearchResults = [])
                                           .whenComplete(() => setState(() {}));
                                     },
                                   ),

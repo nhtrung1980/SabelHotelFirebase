@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:from_css_color/from_css_color.dart';
+import '/backend/algolia/algolia_manager.dart';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
@@ -141,6 +143,56 @@ class RulesRecord extends FirestoreRecord {
     DocumentReference reference,
   ) =>
       RulesRecord._(reference, mapFromFirestore(data));
+
+  static RulesRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
+      RulesRecord.getDocumentFromData(
+        {
+          'name': snapshot.data['name'],
+          'hotel_id': snapshot.data['hotel_id'],
+          'check_in': safeGet(
+            () =>
+                DateTime.fromMillisecondsSinceEpoch(snapshot.data['check_in']),
+          ),
+          'check_out': safeGet(
+            () =>
+                DateTime.fromMillisecondsSinceEpoch(snapshot.data['check_out']),
+          ),
+          'price': snapshot.data['price']?.toDouble(),
+          'surcharge_per_hour': snapshot.data['surcharge_per_hour']?.toDouble(),
+          'extra_adult_price': snapshot.data['extra_adult_price']?.toDouble(),
+          'extra_children_price':
+              snapshot.data['extra_children_price']?.toDouble(),
+          'round_minute_to_hour':
+              snapshot.data['round_minute_to_hour']?.round(),
+          'friday_price': snapshot.data['friday_price']?.toDouble(),
+          'saturday_price': snapshot.data['saturday_price']?.toDouble(),
+          'sunday_price': snapshot.data['sunday_price']?.toDouble(),
+          'holiday_price': snapshot.data['holiday_price']?.toDouble(),
+          'is_day_price': snapshot.data['is_day_price'],
+          'start_block_hour': snapshot.data['start_block_hour']?.round(),
+          'start_block_price': snapshot.data['start_block_price']?.toDouble(),
+          'next_hour_price': snapshot.data['next_hour_price']?.toDouble(),
+        },
+        RulesRecord.collection.doc(snapshot.objectID),
+      );
+
+  static Future<List<RulesRecord>> search({
+    String? term,
+    FutureOr<LatLng>? location,
+    int? maxResults,
+    double? searchRadiusMeters,
+    bool useCache = false,
+  }) =>
+      FFAlgoliaManager.instance
+          .algoliaQuery(
+            index: 'rules',
+            term: term,
+            maxResults: maxResults,
+            location: location,
+            searchRadiusMeters: searchRadiusMeters,
+            useCache: useCache,
+          )
+          .then((r) => r.map(fromAlgolia).toList());
 
   @override
   String toString() =>
