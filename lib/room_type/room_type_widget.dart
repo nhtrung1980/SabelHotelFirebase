@@ -41,7 +41,7 @@ class _RoomTypeWidgetState extends State<RoomTypeWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.roomTypesResp = await queryRoomTypesRecordOnce(
         queryBuilder: (roomTypesRecord) => roomTypesRecord
-            .where('hotel_id', isEqualTo: currentUserUid)
+            .where('hotel_id', isEqualTo: FFAppState().hotelId?.id)
             .orderBy('name'),
       );
       setState(() {
@@ -422,7 +422,8 @@ class _RoomTypeWidgetState extends State<RoomTypeWidget> {
                                   stream: queryRoomTypesRecord(
                                     queryBuilder: (roomTypesRecord) =>
                                         roomTypesRecord.where('hotel_id',
-                                            isEqualTo: currentUserUid),
+                                            isEqualTo:
+                                                FFAppState().hotelId?.id),
                                   ),
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
