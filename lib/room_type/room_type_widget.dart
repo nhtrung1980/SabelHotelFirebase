@@ -397,7 +397,9 @@ class _RoomTypeWidgetState extends State<RoomTypeWidget> {
                                         roomTypesRecord
                                             .where('hotel_id',
                                                 isEqualTo:
-                                                    FFAppState().hotel?.id)
+                                                    FFAppState().hotel?.id != ''
+                                                        ? FFAppState().hotel?.id
+                                                        : null)
                                             .orderBy('name'),
                                   ),
                                   builder: (context, snapshot) {
