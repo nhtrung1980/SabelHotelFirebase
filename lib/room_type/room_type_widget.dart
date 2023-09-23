@@ -43,11 +43,10 @@ class _RoomTypeWidgetState extends State<RoomTypeWidget> {
         queryBuilder: (roomTypesRecord) => roomTypesRecord
             .where('hotel_id', isEqualTo: currentUserUid)
             .orderBy('name'),
-        singleRecord: true,
-      ).then((s) => s.firstOrNull);
+      );
       setState(() {
         _model.roomTypesList =
-            _model.simpleSearchResults.toList().cast<RoomTypesRecord>();
+            _model.roomTypesResp!.toList().cast<RoomTypesRecord>();
       });
     });
 

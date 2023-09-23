@@ -35,7 +35,7 @@ class RoomTypeModel extends FlutterFlowModel {
 
   final unfocusNode = FocusNode();
   // Stores action output result for [Firestore Query - Query a collection] action in roomType widget.
-  RoomTypesRecord? roomTypesResp;
+  List<RoomTypesRecord>? roomTypesResp;
   // Model for sideBarNav component.
   late SideBarNavModel sideBarNavModel;
   // State field(s) for TextField widget.
