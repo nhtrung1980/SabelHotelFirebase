@@ -298,10 +298,7 @@ class _RoomTypeWidgetState extends State<RoomTypeWidget> {
                                               records
                                                   .map(
                                                     (record) => TextSearchItem(
-                                                        record, [
-                                                      record.name!,
-                                                      record.description!
-                                                    ]),
+                                                        record, [record.name!]),
                                                   )
                                                   .toList(),
                                             )
@@ -309,6 +306,7 @@ class _RoomTypeWidgetState extends State<RoomTypeWidget> {
                                                             .textController
                                                             .text)
                                                         .map((r) => r.object)
+                                                        .take(5)
                                                         .toList(),
                                           )
                                           .onError((_, __) =>
