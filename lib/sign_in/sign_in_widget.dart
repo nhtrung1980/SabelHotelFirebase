@@ -335,10 +335,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                           await queryHotelsRecordOnce(
                                         queryBuilder: (hotelsRecord) =>
                                             hotelsRecord.where('user_id',
-                                                isEqualTo: valueOrDefault(
-                                                    currentUserDocument
-                                                        ?.hotelId,
-                                                    '')),
+                                                isEqualTo: currentUserUid),
                                         singleRecord: true,
                                       ).then((s) => s.firstOrNull);
                                       setState(() {
