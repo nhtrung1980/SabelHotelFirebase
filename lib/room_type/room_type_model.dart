@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:text_search/text_search.dart';
 
 class RoomTypeModel extends FlutterFlowModel {
   ///  Local state fields for this page.
@@ -29,8 +30,7 @@ class RoomTypeModel extends FlutterFlowModel {
   // State field(s) for TextField widget.
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
-  // Algolia Search Results from action on IconButton
-  List<RoomTypesRecord>? algoliaSearchResults = [];
+  List<RoomTypesRecord> simpleSearchResults = [];
   // Stores action output result for [Firestore Query - Query a collection] action in IconButton widget.
   List<RoomTypesRecord>? roomTypeListCopy;
 
